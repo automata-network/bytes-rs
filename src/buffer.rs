@@ -134,8 +134,10 @@ impl BufferVec {
         &mut self.raw[self.size..]
     }
 
-    pub fn writen(&mut self, n: usize) -> &mut [u8] {
-        &mut self.raw[self.size..self.size+n]
+    pub fn must_write(&mut self, n: usize) -> &mut [u8] {
+        let buf = &mut self.raw[self.size..self.size+n];
+        self.size += n;
+        buf
     }
 
     pub fn advance(&mut self, n: usize) {
